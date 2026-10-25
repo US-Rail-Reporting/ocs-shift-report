@@ -97,6 +97,16 @@ dt{color:var(--muted);font-size:14px}
 dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
 dd.num{font-family:var(--mono)}
 @media (max-width:520px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.btnlike{display:inline-flex;align-items:center;font:600 15px var(--body);border-radius:4px;padding:10px 18px;cursor:pointer;border:1px solid var(--accent);background:var(--sheet);color:var(--accent)}
+.btnlike:focus-within,#photoInput:focus-visible+.btnlike{outline:2px solid var(--accent);outline-offset:2px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.photo{display:flex;flex-direction:column;gap:6px;min-width:0;border:1px solid var(--line);border-radius:6px;padding:8px;background:var(--field)}
+.photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;background:#ffffff}
+.photo .ph{display:flex;justify-content:space-between;align-items:center;font:500 12px var(--mono);color:var(--muted)}
+.photo input{font-size:14px;padding:6px 8px}
+.sumphotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:6px}
+.sumphotos figure{margin:0;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.sumphotos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;border:1px solid var(--line)}
 .sigimg{max-width:280px;border:1px solid var(--line);border-radius:4px;background:#fff}
 .ok{color:var(--ok);font-weight:600}
 .status{font-size:14px;color:var(--muted)}
@@ -143,9 +153,7 @@ button:disabled{opacity:.6;cursor:default}
     <section>
       <h2>Personnel, Shift and Access</h2>
       <div class="grid g4">
-        <div class="f s2" data-req><label for="staff">US Rail Systems Staff Present<span class="req">*</span></label><input type="text" id="staff" name="staff"><div class="err">List the staff present.</div></div>
-        <div class="f s2" data-req><span class="lbl">Person in Charge (PIC)<span class="req">*</span></span>
-          <div class="pair"><input type="text" id="picFirst" name="picFirst" placeholder="First name" aria-label="PIC first name"><input type="text" id="picLast" name="picLast" placeholder="Last name" aria-label="PIC last name"></div><div class="err">Enter first and last name.</div></div>
+        <div class="f s4" data-req><label for="staff">US Rail Systems Staff Present<span class="req">*</span></label><input type="text" id="staff" name="staff" placeholder="e.g. Jo Ortiz, Kim Patel"><div class="err">List the staff present.</div></div>
         <div class="f s4"><label for="otherPersonnel">Other Key Personnel / Contractor</label><input type="text" id="otherPersonnel" name="otherPersonnel"></div>
         <div class="f" data-req><label for="startTime">Shift Start Time<span class="req">*</span></label><input type="hidden" data-t24 id="startTime" name="startTime"><div class="err">Enter the time.</div></div>
         <div class="f" data-req><label for="endTime">Shift End Time<span class="req">*</span></label><input type="hidden" data-t24 id="endTime" name="endTime"><div class="err">Enter the time.</div></div>
@@ -153,8 +161,8 @@ button:disabled{opacity:.6;cursor:default}
         <div class="f"><label for="workEndTime">Work Finish Time</label><input type="hidden" data-t24 id="workEndTime" name="workEndTime"></div>
         <div class="f"><label for="etIssuedTime">ET's Issued Time</label><input type="hidden" data-t24 id="etIssuedTime" name="etIssuedTime"></div>
         <div class="f"><label for="etCancelTime">ET's Cancelled Time</label><input type="hidden" data-t24 id="etCancelTime" name="etCancelTime"></div>
+        <div class="f"><label for="foulTime">Foul Shot Granted</label><input type="hidden" data-t24 id="foulTime" name="foulTime"></div>
         <div class="f" data-req><label for="totalHours">Total Hours<span class="req">*</span></label><input type="number" id="totalHours" name="totalHours" step="0.25" min="0" placeholder="e.g. 10"><span class="hint" id="hoursHint">Auto-calculated</span><div class="err">Enter total hours.</div></div>
-        <div class="f"><label for="weather">Weather Conditions</label><input type="text" id="weather" name="weather" placeholder="Clear, dry"></div>
         <div class="f s2"><label for="temp">Temperature / Significant Weather</label><input type="text" id="temp" name="temp" placeholder="58°F, gusts to 25 mph"></div>
         <div class="f s2"><label for="accessFrom">Limits of Access – From</label><input type="text" id="accessFrom" name="accessFrom"></div>
         <div class="f s2"><label for="accessTo">Limits of Access – To</label><input type="text" id="accessTo" name="accessTo"></div>
@@ -166,8 +174,7 @@ button:disabled{opacity:.6;cursor:default}
       <div class="grid g4">
         <div class="f s2" data-req><span class="lbl">Safety / job briefing completed<span class="req">*</span></span>
           <div class="seg"><label><input type="radio" name="briefing" id="briefYes" value="Yes"><span>Yes</span></label><label><input type="radio" name="briefing" id="briefNo" value="No"><span>No</span></label></div><div class="err">Select yes or no.</div></div>
-        <div class="f s2" data-req><span class="lbl">Briefing led by<span class="req">*</span></span>
-          <div class="pair"><input type="text" id="briefFirst" name="briefFirst" placeholder="First name" aria-label="Briefing lead first name"><input type="text" id="briefLast" name="briefLast" placeholder="Last name" aria-label="Briefing lead last name"></div><div class="err">Enter first and last name.</div></div>
+        <div class="f s2" data-req><label for="briefBy">Briefing led by<span class="req">*</span></label><input type="text" id="briefBy" name="briefBy" placeholder="First and last name"><div class="err">Enter who led the briefing.</div></div>
         <div class="f"><label for="briefTime">Briefing Time</label><input type="hidden" data-t24 id="briefTime" name="briefTime"></div>
         <div class="f s3" data-req><label for="contractor">Contractor / organization performing works<span class="req">*</span></label><input type="text" id="contractor" name="contractor"><div class="err">Enter the contractor or organization.</div></div>
         <div class="f s4" data-req><label for="hazards">Key hazards / controls discussed<span class="req">*</span></label><textarea id="hazards" name="hazards"></textarea><div class="err">Describe hazards and controls.</div></div>
@@ -187,8 +194,7 @@ button:disabled{opacity:.6;cursor:default}
           <div class="row"><span class="hint" style="flex:1">Sign with your finger or mouse.</span><button type="button" class="small" id="sigClear">Clear</button></div>
           <div class="err">Add your signature.</div></div>
         <div class="s2 stack">
-          <div class="f" data-req><span class="lbl">Report Prepared By<span class="req">*</span></span>
-            <div class="pair"><input type="text" id="prepFirst" name="prepFirst" placeholder="First name" aria-label="Prepared by first name"><input type="text" id="prepLast" name="prepLast" placeholder="Last name" aria-label="Prepared by last name"></div><div class="err">Enter first and last name.</div></div>
+          <div class="f" data-req><label for="prepBy">Report Prepared By<span class="req">*</span></label><input type="text" id="prepBy" name="prepBy" list="staffNames" placeholder="First and last name" autocomplete="off"><datalist id="staffNames"></datalist><span class="hint">Filled in from Staff Present. Change it if someone else prepared the report.</span><div class="err">Enter who prepared the report.</div></div>
           <div class="f" data-req><label for="signTime">Time<span class="req">*</span></label><input type="hidden" data-t24 id="signTime" name="signTime"><div class="err">Enter the time.</div></div>
         </div>
       </div>
@@ -198,6 +204,13 @@ button:disabled{opacity:.6;cursor:default}
       <h2>Works Completed</h2>
       <p class="hint" style="margin:0">Printed on a separate page at the end of the report.</p>
       <div class="f"><label for="worksCompleted" class="vh">Works completed</label><textarea id="worksCompleted" name="worksCompleted" rows="6" placeholder="List the work completed this shift, one item per line. Include location, structure or asset numbers where relevant."></textarea></div>
+    </section>
+
+    <section>
+      <h2>Photos</h2>
+      <p class="hint" style="margin:0">Added on separate pages at the end of the report, two per page. Take a photo or choose from your library.</p>
+      <div class="row"><label for="photoInput" class="btnlike">Add photos</label><input type="file" id="photoInput" accept="image/*" multiple class="vh"><span class="hint" id="photoCount">No photos added.</span></div>
+      <div class="photos" id="photoList"></div>
     </section>
     </div>
 
@@ -644,7 +657,7 @@ $('totalHours').addEventListener('input',()=>{hoursManual=$('totalHours').value!
 let docId='';
 function collect(){const d={};new FormData(form).forEach((v,k)=>d[k]=v);d._sig=sigData;d._docId=docId;return d}
 function save(){store.set(collect());$('draftNote').textContent='Draft saved '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hourCycle:'h23'})}
-function restore(d){if(!d)return;Object.entries(d).forEach(([k,v])=>{const els=form.elements[k];if(!els)return;if(els instanceof RadioNodeList&&els.length&&els[0].type==='radio'){els.forEach(r=>r.checked=r.value===v)}else if(els.value!==undefined)els.value=v});sigData=d._sig||'';hasSig=!!sigData;docId=d._docId||'';hoursManual=!!d.totalHours}
+function restore(d){if(!d)return;if(!d.prepBy&&(d.prepFirst||d.prepLast))d.prepBy=((d.prepFirst||'')+' '+(d.prepLast||'')).trim();if(!d.briefBy&&(d.briefFirst||d.briefLast))d.briefBy=((d.briefFirst||'')+' '+(d.briefLast||'')).trim();Object.entries(d).forEach(([k,v])=>{const els=form.elements[k];if(!els)return;if(els instanceof RadioNodeList&&els.length&&els[0].type==='radio'){els.forEach(r=>r.checked=r.value===v)}else if(els.value!==undefined)els.value=v});sigData=d._sig||'';hasSig=!!sigData;docId=d._docId||'';hoursManual=!!d.totalHours}
 form.addEventListener('input',()=>{clearTimeout(save.t);save.t=setTimeout(save,400)});
 form.addEventListener('change',e=>{const f=e.target.closest('[data-req]');if(f)check(f)});
 
@@ -665,12 +678,45 @@ document.querySelectorAll('input[data-t24]').forEach(h=>{
     h.dispatchEvent(new Event('change',{bubbles:true}));h.dispatchEvent(new Event('input',{bubbles:true}))};
   hs.addEventListener('change',upd);ms.addEventListener('change',upd);
 });
+/* ---------- photos (kept on this device in IndexedDB) ---------- */
+let photos=[];const MAXP=20;
+const pdbP=new Promise(res=>{try{const r=indexedDB.open('ocs-shift-photos',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}});
+async function savePhotos(){const db=await pdbP;if(!db)return;try{db.transaction('kv','readwrite').objectStore('kv').put(photos,'photos')}catch(e){}}
+async function loadPhotos(){const db=await pdbP;if(!db)return[];return new Promise(res=>{try{const q=db.transaction('kv').objectStore('kv').get('photos');q.onsuccess=()=>res(Array.isArray(q.result)?q.result:[]);q.onerror=()=>res([])}catch(e){res([])}})}
+function shrink(file){return new Promise((res,rej)=>{const url=URL.createObjectURL(file);const img=new Image();
+  img.onload=()=>{const max=1600;let w=img.naturalWidth,h=img.naturalHeight;const r=Math.min(1,max/Math.max(w,h));w=Math.round(w*r);h=Math.round(h*r);
+    const cv=document.createElement('canvas');cv.width=w;cv.height=h;const x=cv.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+    res({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),data:cv.toDataURL('image/jpeg',0.72),w,h,caption:''})};
+  img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('unreadable'))};img.src=url})}
+function renderPhotos(){
+  const list=$('photoList');list.innerHTML='';
+  photos.forEach((p,i)=>{const c=document.createElement('div');c.className='photo';
+    c.innerHTML='<img alt=""><div class="ph"><span>Photo '+(i+1)+'</span><button type="button" class="small">Remove</button></div><input type="text" placeholder="Caption (optional)" aria-label="Caption for photo '+(i+1)+'">';
+    c.querySelector('img').src=p.data;const inp=c.querySelector('input');inp.id='photoCap'+p.id;inp.value=p.caption||'';
+    inp.addEventListener('input',()=>{p.caption=inp.value;clearTimeout(renderPhotos.t);renderPhotos.t=setTimeout(savePhotos,400)});
+    c.querySelector('button').onclick=()=>{photos.splice(i,1);renderPhotos();savePhotos()};list.appendChild(c)});
+  $('photoCount').textContent=photos.length?photos.length+(photos.length===1?' photo':' photos')+' added'+(photos.length>=MAXP?' (limit reached)':''):'No photos added.'}
+$('photoInput').addEventListener('change',async e=>{const files=[...e.target.files];e.target.value='';
+  const room=MAXP-photos.length;if(room<=0){$('photoCount').textContent='You can add up to '+MAXP+' photos.';return}
+  $('photoCount').textContent='Adding photos…';let bad=0;
+  for(const f of files.slice(0,room)){try{photos.push(await shrink(f))}catch(err){bad++}}
+  renderPhotos();savePhotos();
+  if(bad)$('photoCount').textContent+=' · '+bad+(bad===1?' file':' files')+' could not be read';
+  if(files.length>room)$('photoCount').textContent+=' · only '+MAXP+' photos fit in one report'});
+loadPhotos().then(p=>{photos=p;renderPhotos()});
 /* long text boxes grow with their content up to ~55% of the screen, then scroll inside */
 function fitTA(el){const max=Math.round(window.innerHeight*0.55);el.style.height='auto';const h=Math.min(el.scrollHeight+2,max);el.style.height=Math.max(h,el.id==='worksCompleted'?150:64)+'px'}
 function fitAll(){document.querySelectorAll('textarea:not([readonly])').forEach(fitTA)}
 form.addEventListener('input',e=>{if(e.target.tagName==='TEXTAREA')fitTA(e.target)});
+/* Report Prepared By: filled from Staff Present until someone types their own */
+let prepTouched=false;
+const staffNames=s=>String(s||'').split(/[,;\/&\n]+|\s+and\s+/i).map(x=>x.trim()).filter(Boolean);
+function syncPrep(){const list=staffNames($('staff').value);const dl=$('staffNames');dl.innerHTML='';list.forEach(n=>{const o=document.createElement('option');o.value=n;dl.appendChild(o)});
+  if(!prepTouched){$('prepBy').value=list[0]||''}}
+$('staff').addEventListener('input',syncPrep);
+$('prepBy').addEventListener('input',()=>{prepTouched=$('prepBy').value.trim()!==''&&$('prepBy').value.trim()!==(staffNames($('staff').value)[0]||'')});
 const draft=store.get();
-if(draft){restore(draft);$('draftNote').textContent='Draft restored from this device'}
+if(draft){restore(draft);prepTouched=!!$('prepBy').value&&$('prepBy').value!==(staffNames($('staff').value)[0]||'');syncPrep();$('draftNote').textContent='Draft restored from this device'}
 else{$('date').value=today();$('signTime').value=now()}
 syncT24();
 sizeCanvas();fitAll();window.addEventListener('resize',()=>{if(!form.hidden){sizeCanvas();fitAll()}});
@@ -696,7 +742,7 @@ async function nextReportNo(){const n=new Date(),p=x=>String(x).padStart(2,'0');
 /* reset */
 $('resetBtn').onclick=()=>{$('resetConfirm').hidden=false};
 $('resetNo').onclick=()=>{$('resetConfirm').hidden=true};
-$('resetYes').onclick=()=>{form.reset();document.querySelectorAll('input[data-t24]').forEach(h=>h.value='');store.clear();docId='';sigData='';hasSig=false;hoursManual=false;sizeCanvas();$('date').value=today();$('signTime').value=now();syncT24();form.querySelectorAll('.invalid').forEach(f=>f.classList.remove('invalid'));$('resetConfirm').hidden=true;$('draftNote').textContent='';fitAll();window.scrollTo(0,0)};
+$('resetYes').onclick=()=>{form.reset();prepTouched=false;$('staffNames').innerHTML='';photos=[];renderPhotos();savePhotos();document.querySelectorAll('input[data-t24]').forEach(h=>h.value='');store.clear();docId='';sigData='';hasSig=false;hoursManual=false;sizeCanvas();$('date').value=today();$('signTime').value=now();syncT24();form.querySelectorAll('.invalid').forEach(f=>f.classList.remove('invalid'));$('resetConfirm').hidden=true;$('draftNote').textContent='';fitAll();window.scrollTo(0,0)};
 
 /* summary */
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -704,18 +750,19 @@ function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return m+'-'+day+
 function fmtTime(t){if(!t)return'';const[h,m]=t.split(':');return h.padStart(2,'0')+':'+m.padStart(2,'0')}
 function sections(d){return[
  ['Report Details',[['Project',d.project],['Location / Work Area',d.location],['Date',fmtDate(d.date)],['Shift',d.shift],['Report No.',d.reportNo]]],
- ['Personnel and Shift Information',[['US Rail Systems Staff Present',d.staff],['Person in Charge (PIC)',(d.picFirst+' '+d.picLast).trim()],['Other Key Personnel / Contractor',d.otherPersonnel],['Shift Start Time',fmtTime(d.startTime)],['Shift End Time',fmtTime(d.endTime)],['Work Start Time',fmtTime(d.workStartTime)],['Work Finish Time',fmtTime(d.workEndTime)],["ET's Issued Time",fmtTime(d.etIssuedTime)],["ET's Cancelled Time",fmtTime(d.etCancelTime)],['Total Hours',d.totalHours,1]]],
- ['Weather and Access Limits',[['Weather Conditions',d.weather],['Temperature / Significant Weather',d.temp],['Limits of Access – From',d.accessFrom],['Limits of Access – To',d.accessTo]]],
- ['Briefing and Work Planning',[['Safety / job briefing completed',d.briefing],['Briefing led by',(d.briefFirst+' '+d.briefLast).trim()],['Briefing Time',fmtTime(d.briefTime)],['Key hazards / controls discussed',d.hazards],['Contractor / organization',d.contractor]]],
+ ['Personnel and Shift Information',[['US Rail Systems Staff Present',d.staff],['Other Key Personnel / Contractor',d.otherPersonnel],['Shift Start Time',fmtTime(d.startTime)],['Shift End Time',fmtTime(d.endTime)],['Work Start Time',fmtTime(d.workStartTime)],['Work Finish Time',fmtTime(d.workEndTime)],["ET's Issued Time",fmtTime(d.etIssuedTime)],["ET's Cancelled Time",fmtTime(d.etCancelTime)],['Foul Shot Granted',fmtTime(d.foulTime)],['Total Hours',d.totalHours,1]]],
+ ['Weather and Access Limits',[['Temperature / Significant Weather',d.temp],['Limits of Access – From',d.accessFrom],['Limits of Access – To',d.accessTo]]],
+ ['Briefing and Work Planning',[['Safety / job briefing completed',d.briefing],['Briefing led by',d.briefBy],['Briefing Time',fmtTime(d.briefTime)],['Key hazards / controls discussed',d.hazards],['Contractor / organization',d.contractor]]],
  ['Site Issues',[['Site Issues',d.siteIssues]]],
- ['Authorization',[['Report Prepared By',(d.prepFirst+' '+d.prepLast).trim()],['Time',fmtTime(d.signTime)]]],
+ ['Authorization',[['Report Prepared By',d.prepBy],['Time',fmtTime(d.signTime)]]],
  ['Works Completed',[['Works Completed',d.worksCompleted]]]]}
 function showSummary(d){
+  const phHtml=photos.length?'<div><h3>Photos</h3><div class="sumphotos">'+photos.map((p,i)=>'<figure><img alt="Photo '+(i+1)+'" src="'+p.data+'"><figcaption>'+(i+1)+'. '+esc(p.caption||'')+'</figcaption></figure>').join('')+'</div></div>':'';
   const html=sections(d).map(([h,rows])=>'<div><h3>'+esc(h)+'</h3><dl>'+rows.map(([k,v,n])=>'<dt>'+esc(k)+'</dt><dd'+(n?' class="num"':'')+'>'+(esc(v).trim()||'—')+'</dd>').join('')+(h==='Authorization'?'<dt>Signature</dt><dd><img class="sigimg" alt="Signature" src="'+d._sig+'"></dd>':'')+'</dl></div>').join('');
-  $('summary').innerHTML='<div class="savebox"><div class="ok">Report complete</div><button type="button" class="primary big" id="pdfBtn" disabled>Creating PDF…</button><p class="hint2" id="pdfHint">Tap <b>Save PDF</b>. On iPhone or iPad the share menu opens: choose <b>Save to Files</b> to keep it and email it later, or <b>Mail</b> to send it now. On a computer it saves to your Downloads folder.</p><p class="hint2">Email completed reports to <b class="sel">dale.sorrensen@usrailsystems.com</b> <button type="button" class="small" id="copyEmail">Copy address</button></p><button type="button" class="linkbtn" id="dlBtn" hidden>Download the PDF instead</button></div><div class="status" id="saveStatus"></div><div class="row"><button type="button" id="editBtn">Edit report</button><button type="button" id="copyBtn">Copy report text</button></div><div class="sheet" id="sheet"><div><div class="eyebrow">OCS Site Oversight – Shift Report</div><h1 style="font-size:28px">'+esc(d.reportNo)+' · '+esc(fmtDate(d.date))+' · '+esc(d.shift)+' shift</h1></div>'+html+'</div><textarea id="copyText" readonly hidden></textarea>';
+  $('summary').innerHTML='<div class="savebox"><div class="ok">Report complete</div><button type="button" class="primary big" id="pdfBtn" disabled>Creating PDF…</button><p class="hint2" id="pdfHint">Tap <b>Save PDF</b>. On iPhone or iPad the share menu opens: choose <b>Save to Files</b> to keep it and email it later, or <b>Mail</b> to send it now. On a computer it saves to your Downloads folder.</p><p class="hint2">Email completed reports to <b class="sel">dale.sorrensen@usrailsystems.com</b> <button type="button" class="small" id="copyEmail">Copy address</button></p><button type="button" class="linkbtn" id="dlBtn" hidden>Download the PDF instead</button></div><div class="status" id="saveStatus"></div><div class="row"><button type="button" id="editBtn">Edit report</button><button type="button" id="copyBtn">Copy report text</button></div><div class="sheet" id="sheet"><div><div class="eyebrow">OCS Site Oversight – Shift Report</div><h1 style="font-size:28px">'+esc(d.reportNo)+' · '+esc(fmtDate(d.date))+' · '+esc(d.shift)+' shift</h1></div>'+html+phHtml+'</div><textarea id="copyText" readonly hidden></textarea>';
   form.hidden=true;$('summary').hidden=false;window.scrollTo(0,0);
   $('editBtn').onclick=()=>{$('summary').hidden=true;form.hidden=false;sizeCanvas();fitAll()};
-  const txt='OCS SITE OVERSIGHT – SHIFT REPORT\n'+sections(d).map(([h,rows])=>'\n'+h.toUpperCase()+'\n'+rows.map(([k,v])=>k+': '+(String(v||'').trim()||'—')).join('\n')).join('\n')+'\nSignature: on file';
+  const txt='OCS SITE OVERSIGHT – SHIFT REPORT\n'+sections(d).map(([h,rows])=>'\n'+h.toUpperCase()+'\n'+rows.map(([k,v])=>k+': '+(String(v||'').trim()||'—')).join('\n')).join('\n')+'\nSignature: on file'+(photos.length?'\nPhotos: '+photos.length+' (in the PDF)':'');
   $('copyBtn').onclick=()=>{const b=$('copyBtn');const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy report text',1800)};
     const fallback=()=>{const t=$('copyText');t.hidden=false;t.value=txt;t.style.minHeight='240px';t.select();b.textContent='Press Ctrl/Cmd+C to copy'};
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,fallback)}else fallback()};
@@ -757,15 +804,15 @@ function buildPdf(d){
   row([['Project',d.project,2],['Location / Work Area',d.location,2]]);
   row([['Date',fmtDate(d.date),1],['Report No.',d.reportNo,1],['Shift',d.shift,1],['Total Hours',d.totalHours,1]]);
   section('Personnel and Shift Information');
-  row([['US Rail Systems Staff Present',d.staff,2],['Person in Charge (PIC)',name(d.picFirst,d.picLast),2]]);
+  row([['US Rail Systems Staff Present',d.staff,4]]);
   row([['Other Key Personnel / Contractor',d.otherPersonnel,4]]);
   row([['Shift Start Time',t(d.startTime),1],['Shift End Time',t(d.endTime),1],['Work Start Time',t(d.workStartTime),1],['Work Finish Time',t(d.workEndTime),1]]);
-  row([["ET's Issued Time",t(d.etIssuedTime),1],["ET's Cancelled Time",t(d.etCancelTime),1]]);
+  row([["ET's Issued Time",t(d.etIssuedTime),1],["ET's Cancelled Time",t(d.etCancelTime),1],['Foul Shot Granted',t(d.foulTime),1]]);
   section('Weather and Access Limits');
-  row([['Weather Conditions',d.weather,2],['Temperature / Significant Weather',d.temp,2]]);
+  row([['Temperature / Significant Weather',d.temp,4]]);
   row([['Limits of Access – From',d.accessFrom,2],['Limits of Access – To',d.accessTo,2]]);
   section('Briefing and Work Planning');
-  row([['Safety / job briefing completed',d.briefing,1],['Briefing Time',t(d.briefTime),1],['Briefing Led By',name(d.briefFirst,d.briefLast),2]]);
+  row([['Safety / job briefing completed',d.briefing,1],['Briefing Time',t(d.briefTime),1],['Briefing Led By',d.briefBy,2]]);
   row([['Contractor / Organization Performing Works',d.contractor,4]]);
   row([['Key Hazards / Controls Discussed',d.hazards,4]],40);
   section('Site Issues');
@@ -776,7 +823,7 @@ function buildPdf(d){
   doc.setFillColor(255,255,255);doc.setDrawColor(...LINE);doc.setLineWidth(0.75);doc.rect(M,y+10,sw,sh,'FD');
   if(d._sig){try{const ip=doc.getImageProperties(d._sig);const r=Math.min((sw-6)/ip.width,(sh-6)/ip.height);const iw=ip.width*r,ih=ip.height*r;doc.addImage(d._sig,'PNG',M+(sw-iw)/2,y+10+(sh-ih)/2,iw,ih)}catch(e){}}
   const xr=M+sw+G,wr=col*2+G;
-  [['Report Prepared By',name(d.prepFirst,d.prepLast)],['Time',t(d.signTime)]].forEach(([l,v],i)=>{const yy=y0+i*36;
+  [['Report Prepared By',d.prepBy],['Time',t(d.signTime)]].forEach(([l,v],i)=>{const yy=y0+i*36;
     doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...INK);doc.text(l,xr,yy+8);
     doc.setFillColor(...FIELD);doc.setDrawColor(...LINE);doc.rect(xr,yy+10,wr,20,'FD');
     doc.setFont('helvetica','normal');doc.setFontSize(9);doc.text(String(v||'').trim()||'—',xr+5,yy+23)});
@@ -797,7 +844,21 @@ function buildPdf(d){
       doc.setTextColor(...INK);doc.text(chunk.length?chunk:['—'],M+5,y+12);i+=per;
       if(!last){footer();doc.addPage();page++;y=M}else break}})();
   footer();
-  doc.setProperties({title:'OCS Site Oversight – Shift Report '+(d.reportNo||''),author:name(d.prepFirst,d.prepLast)});
+  /* photo pages: two per page */
+  for(let i=0;i<photos.length;i+=2){
+    doc.addPage();page++;y=M;header();
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...MUT);
+    doc.text([d.reportNo,fmtDate(d.date),d.shift?d.shift+' shift':'',d.project].filter(Boolean).join('   |   '),M,y+6);y+=16;
+    section('Photos');
+    const slot=(BOT-y-8)/2;
+    photos.slice(i,i+2).forEach((p,k)=>{const top=y+k*(slot+8),ih=slot-22;
+      doc.setFillColor(255,255,255);doc.setDrawColor(...LINE);doc.setLineWidth(0.75);doc.rect(M,top,CW,slot,'FD');
+      const r=Math.min((CW-12)/p.w,(ih-8)/p.h),w=p.w*r,h=p.h*r;
+      try{doc.addImage(p.data,'JPEG',M+(CW-w)/2,top+6+(ih-8-h)/2,w,h)}catch(e){}
+      doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(...INK);const lab='Photo '+(i+k+1)+' of '+photos.length;doc.text(lab,M+6,top+slot-8);const labW=doc.getTextWidth(lab);
+      if(p.caption){doc.setFont('helvetica','normal');const cap=doc.splitTextToSize(p.caption,CW-24-labW)[0];doc.text(cap,M+14+labW,top+slot-8)}});
+    footer()}
+  doc.setProperties({title:'OCS Site Oversight – Shift Report '+(d.reportNo||''),author:d.prepBy||''});
   return doc.output('blob');
 }
 
